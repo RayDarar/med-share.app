@@ -2,8 +2,7 @@
 
 Application part. Build using these ⚙️:
 
-- Vue 3, Vuex
+- Vue 2, Vuex, Vuetify
 - Typescript
 - Es-Lint
 - Prettier
-- Vuetify
