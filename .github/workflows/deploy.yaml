@@ -18,4 +18,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            ls
+            cd ~/med-share.app
+            git pull origin master
+            yarn install --frozen-lockfile
+            yarn build
