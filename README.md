@@ -1,2 +1,9 @@
-# med-share.app
-DBMS course final project. Application part
+# Med-Share ⚕️
+
+Application part. Build using these ⚙️:
+
+- Vue 3, Vuex
+- Typescript
+- Es-Lint
+- Prettier
+- Travis CI
