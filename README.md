@@ -6,3 +6,4 @@ Application part. Build using these ⚙️:
 - Typescript
 - Es-Lint
 - Prettier
+- Vuetify
