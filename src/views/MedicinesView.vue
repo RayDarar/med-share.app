@@ -13,6 +13,8 @@
         append-icon="mdi-magnify"
         class="mt-10"
       ></v-autocomplete>
+
+      <router-view class="mt-10"></router-view>
     </div>
     <div class="illustration-wrapper">
       <v-img

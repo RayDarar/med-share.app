@@ -35,6 +35,7 @@ const routes: Array<RouteConfig> = [
         meta: {
           transitionIndex: 2,
         },
+        component: () => import("@/views/medicines/Instructions.vue"),
       },
     ],
   },

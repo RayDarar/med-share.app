@@ -8,6 +8,12 @@
         Med-share — это онлайн сервис для быстрого поиска лекарств в Алматы.
         Сравнивайте цены, экономьте бюджет и свое время!
       </p>
+      <div class="button-wrapper mt-10 d-flex">
+        <v-btn color="primary" @click="to('/medicines')">Найти в Аптеках</v-btn>
+        <v-btn color="primary" class="ml-4" @click="to('/posts')"
+          >Найти в объявлениях</v-btn
+        >
+      </div>
     </div>
     <div class="illustration-wrapper">
       <v-img
@@ -17,7 +23,11 @@
         transition="scale-transition"
       />
     </div>
-    <img class="background-lines" src="@/assets/home-lines.svg" alt="Abstract lines" />
+    <img
+      class="background-lines"
+      src="@/assets/home-lines.svg"
+      alt="Abstract lines"
+    />
   </div>
 </template>
 
@@ -25,7 +35,11 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  public to(path: string) {
+    this.$router.push(path);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +59,8 @@ export default class HomeView extends Vue {}
 .home-description {
   font-size: 1.5rem;
 }
-.illustration-wrapper {
+.illustration-wrapper,
+.info-wrapper {
   z-index: 1;
 }
 .background-lines {

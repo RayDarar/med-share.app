@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-app-bar app color="#1768C4" dark class="px-16">
       <div class="d-flex align-center">
         <router-link to="/">

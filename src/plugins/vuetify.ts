@@ -9,6 +9,13 @@ export default new Vuetify({
   icons: {
     iconfont: "mdi",
   },
+  theme: {
+    themes: {
+      light: {
+        primary: "#004fa8",
+      },
+    },
+  },
   lang: {
     current: "ru",
     locales: { ru },
