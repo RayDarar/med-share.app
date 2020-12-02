@@ -5,33 +5,40 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/stores",
+    path: "/",
     meta: {
       transitionIndex: 0,
     },
+    component: () => import("@/views/Home.vue"),
   },
   {
-    path: "/medicines",
+    path: "/stores",
     meta: {
       transitionIndex: 1,
     },
   },
   {
-    path: "/posts",
+    path: "/medicines",
     meta: {
       transitionIndex: 2,
     },
   },
   {
-    path: "/log-in",
+    path: "/posts",
     meta: {
       transitionIndex: 3,
     },
   },
   {
-    path: "/register",
+    path: "/log-in",
     meta: {
       transitionIndex: 4,
+    },
+  },
+  {
+    path: "/register",
+    meta: {
+      transitionIndex: 5,
     },
   },
 ];
