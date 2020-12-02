@@ -41,16 +41,16 @@ import { Route } from "vue-router";
   components: { NavigationLink },
 })
 export default class App extends Vue {
-  transitionName = "";
+  transitionName = "fade";
 
   @Watch("$route")
   public transitionHandler(to: Route, from: Route) {
     const toIndex: number = to.meta.transitionIndex || 0;
     const fromIndex: number = from.meta.transitionIndex || 0;
 
-    if (toIndex == fromIndex) return (this.transitionName = "page-fade");
-    if (toIndex < fromIndex) return (this.transitionName = "page-slide-right");
-    if (toIndex > fromIndex) return (this.transitionName = "page-slide-left");
+    if (toIndex == fromIndex) return (this.transitionName = "fade");
+    if (toIndex < fromIndex) return (this.transitionName = "slide-right");
+    if (toIndex > fromIndex) return (this.transitionName = "slide-left");
   }
 }
 </script>
@@ -63,23 +63,37 @@ $font-family: "Montserrat", sans-serif;
   font-family: "Montserrat", sans-serif;
 }
 
-.page-fade-enter-active,
-.page-fade-leave-active {
-  transition: opacity 0.75s ease;
-}
-.page-fade-enter,
-.page-fade-leave-active {
-  opacity: 0;
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
 }
 
-.page-slide-left-enter,
-.page-slide-right-leave-active {
-  opacity: 0;
-  transform: translate(30px, 0);
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
-.page-slide-left-leave-active,
-.page-slide-right-enter {
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: 0.5s;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden;
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
   opacity: 0;
-  transform: translate(-30px, 0);
+  transform: translate(2em, 0);
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(-2em, 0);
 }
 </style>
