@@ -31,10 +31,6 @@ export default class HomeView extends Vue {}
 <style lang="scss" scoped>
 @import "@/assets/scss/_variables.scss";
 
-#home-view {
-  background-color: transparent;
-}
-
 .info-wrapper {
   max-width: 550px;
 }

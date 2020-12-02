@@ -22,6 +22,21 @@ const routes: Array<RouteConfig> = [
     meta: {
       transitionIndex: 2,
     },
+    component: () => import("@/views/MedicinesView.vue"),
+    children: [
+      {
+        path: "search",
+        meta: {
+          transitionIndex: 2,
+        },
+      },
+      {
+        path: "/",
+        meta: {
+          transitionIndex: 2,
+        },
+      },
+    ],
   },
   {
     path: "/posts",
