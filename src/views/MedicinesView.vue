@@ -6,9 +6,13 @@
       </h1>
 
       <v-autocomplete
-        v-model="query"
+        :search-input.sync="query"
         solo
         clearable
+        :loading="loading"
+        :items="suggestions"
+        item-text="TITLE"
+        item-value="ID"
         placeholder="Введите название препарата"
         append-icon="mdi-magnify"
         class="mt-10"
@@ -29,10 +33,34 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { MedicinesSuggestion } from "@/@types";
+import debounce from "lodash.debounce";
+import { api } from "@/api";
 
-@Component
+@Component({
+  watch: {
+    query: "fetchSuggestions",
+  },
+  methods: {
+    fetchSuggestions: debounce(async function(
+      this: MedicinesView,
+      val: string
+    ) {
+      if (!val) return;
+      if (val.length < 1) return;
+      console.log(this);
+      this.loading = true;
+      const { data } = await api.get("/medicines/autocomplete?query=" + val);
+      this.suggestions = data;
+      this.loading = false;
+    },
+    500),
+  },
+})
 export default class MedicinesView extends Vue {
   query = "";
+  suggestions: MedicinesSuggestion[] = [];
+  loading = false;
 }
 </script>
 

@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@mdi/font": "^5.8.55",
+    "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.2",
@@ -17,6 +19,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
