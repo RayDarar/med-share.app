@@ -10,6 +10,15 @@ export interface Medicine extends MedicinesSuggestion {
   AVAILABLE: number;
 }
 
+type PharmaciesSuggestion = MedicinesSuggestion;
+
+export interface Pharmacy extends PharmaciesSuggestion {
+  PHONES: string;
+  ADDRESS: string;
+  LATITUDE?: number;
+  LONGITUDE?: number;
+}
+
 export interface VCombobox extends Vue {
   blur(): void;
 }
