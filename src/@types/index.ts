@@ -22,3 +22,6 @@ export interface Pharmacy extends PharmaciesSuggestion {
 export interface VCombobox extends Vue {
   blur(): void;
 }
+export interface VForm extends Vue {
+  validate(): boolean;
+}

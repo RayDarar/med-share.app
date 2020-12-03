@@ -20,7 +20,7 @@
       </div>
       <v-spacer></v-spacer>
       <div class="d-flex align-center ml-16">
-        <navigation-link to="/log-in">Войти</navigation-link>
+        <navigation-link to="/login">Войти</navigation-link>
         <navigation-link to="/register">Зарегистрироваться</navigation-link>
       </div>
     </v-app-bar>

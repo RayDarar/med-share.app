@@ -46,7 +46,8 @@ const routes: Array<RouteConfig> = [
     path: "/posts",
   },
   {
-    path: "/log-in",
+    path: "/login",
+    component: () => import("@/views/Login.vue"),
   },
   {
     path: "/register",
