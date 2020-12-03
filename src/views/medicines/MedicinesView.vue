@@ -5,7 +5,9 @@
         Лекарства в аптеках
       </h1>
 
-      <v-autocomplete
+      <v-combobox
+        ref="box"
+        full-width
         :search-input.sync="query"
         solo
         clearable
@@ -16,9 +18,10 @@
         placeholder="Введите название препарата"
         append-icon="mdi-magnify"
         class="mt-10"
-      ></v-autocomplete>
+        @keydown.enter="openSearchPage"
+      ></v-combobox>
 
-      <router-view class="mt-10"></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </div>
     <div class="illustration-wrapper">
       <v-img
@@ -36,6 +39,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { MedicinesSuggestion } from "@/@types";
 import debounce from "lodash.debounce";
 import { api } from "@/api";
+import { VCombobox } from "@/@types";
 
 @Component({
   watch: {
@@ -48,7 +52,6 @@ import { api } from "@/api";
     ) {
       if (!val) return;
       if (val.length < 1) return;
-      console.log(this);
       this.loading = true;
       const { data } = await api.get("/medicines/autocomplete?query=" + val);
       this.suggestions = data;
@@ -61,6 +64,22 @@ export default class MedicinesView extends Vue {
   query = "";
   suggestions: MedicinesSuggestion[] = [];
   loading = false;
+
+  $refs: {
+    box: VCombobox;
+  };
+
+  public openSearchPage() {
+    if (!this.query) return;
+
+    this.$router.push({
+      path: "/medicines/search",
+      query: {
+        query: this.query,
+      },
+    });
+    this.$refs.box.blur();
+  }
 }
 </script>
 

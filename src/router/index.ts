@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { RawLocation, Route, RouteConfig } from "vue-router";
 
 Vue.use(VueRouter);
 
@@ -14,16 +14,22 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/medicines",
-    component: () => import("@/views/MedicinesView.vue"),
+    component: () => import("@/views/medicines/MedicinesView.vue"),
     children: [
       {
         path: "search",
+        component: () => import("@/views/medicines/Search.vue"),
       },
       {
         path: "/",
         component: () => import("@/views/medicines/Instructions.vue"),
       },
     ],
+  },
+  {
+    path: "/medicines/:id",
+    component: () => import("@/views/medicines/MedicineView.vue"),
+    name: "medicine-view",
   },
   {
     path: "/posts",
@@ -36,6 +42,12 @@ const routes: Array<RouteConfig> = [
   },
 ];
 
+const originalPush = VueRouter.prototype.push as (
+  l: RawLocation
+) => Promise<Route>;
+VueRouter.prototype.push = async function push(location: RawLocation) {
+  return originalPush.call(this, location).catch((err) => err);
+};
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,

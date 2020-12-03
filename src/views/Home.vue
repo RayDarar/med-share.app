@@ -46,7 +46,7 @@ export default class HomeView extends Vue {
 @import "@/assets/scss/_variables.scss";
 
 .info-wrapper {
-  max-width: 550px;
+  max-width: 500px;
 }
 .home-title {
   font-size: 4rem;
