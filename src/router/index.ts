@@ -11,6 +11,17 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/stores",
+    component: () => import("@/views/stores/StoresView.vue"),
+    children: [
+      {
+        path: "search",
+        component: () => import("@/views/stores/Search.vue"),
+      },
+      {
+        path: "/",
+        component: () => import("@/views/stores/Instructions.vue"),
+      },
+    ],
   },
   {
     path: "/medicines",

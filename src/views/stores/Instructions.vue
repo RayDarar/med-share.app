@@ -4,8 +4,8 @@
       <v-card>
         <v-card-title>Шаг 1</v-card-title>
         <v-card-text>
-          Начните вводить название препарата в строку поиска и выберите нужный
-          препарат из выпадающего списка.
+          Если ищите конкретную аптеку по названию или адресу, начните вводить
+          данные в строку поиска.
         </v-card-text>
       </v-card>
     </v-timeline-item>
@@ -13,8 +13,8 @@
       <v-card>
         <v-card-title>Шаг 2</v-card-title>
         <v-card-text>
-          Далее сервис покажет аптеки, где имеется искомый препарат. Из аптек
-          выберите комфортную для себя как по местоположению так и по цене.
+          Выберите нужную аптеку из выпадающего списка. Так же вы можете
+          использовать поиск аптек рядом с помощью карты.
         </v-card-text>
       </v-card>
     </v-timeline-item>
@@ -22,8 +22,8 @@
       <v-card>
         <v-card-title>Шаг 3</v-card-title>
         <v-card-text>
-          По окончанию поиска желательно позвонить в аптеку и уточнить наличие
-          препарата.
+          После успешного поиска аптеки и препарата, рекомендуем позвонить в
+          аптеку и уточнить его наличие.
         </v-card-text>
       </v-card>
     </v-timeline-item>
@@ -34,7 +34,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
-export default class MedicinesInstructions extends Vue {}
+export default class StoresInstructions extends Vue {}
 </script>
 
 <style lang="scss" scoped></style>

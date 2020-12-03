@@ -37,6 +37,7 @@
         </v-card-text>
       </v-card>
     </div>
+    <div class="spacer"></div>
     <gis-map v-if="stores" class="map" :stores="stores"></gis-map>
     <v-dialog v-model="dialog" width="500">
       <v-card>
@@ -142,7 +143,7 @@ export default class MedicineView extends Vue {
   position: fixed;
   right: 0;
   top: 64px;
-  width: calc(100vw - 500px - 60px - 24px);
+  width: calc(100vw - 550px - 60px);
   height: calc(100vh - 64px);
 }
 </style>

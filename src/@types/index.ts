@@ -10,7 +10,7 @@ export interface Medicine extends MedicinesSuggestion {
   AVAILABLE: number;
 }
 
-type PharmaciesSuggestion = MedicinesSuggestion;
+export type PharmaciesSuggestion = MedicinesSuggestion;
 
 export interface Pharmacy extends PharmaciesSuggestion {
   PHONES: string;
