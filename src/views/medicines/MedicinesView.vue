@@ -19,7 +19,9 @@
         append-icon="mdi-magnify"
         class="mt-10"
         @keydown.enter="openSearchPage"
-      ></v-combobox>
+        @input="openMedicinePage"
+      >
+      </v-combobox>
 
       <router-view :key="$route.fullPath"></router-view>
     </div>
@@ -68,6 +70,17 @@ export default class MedicinesView extends Vue {
   $refs: {
     box: VCombobox;
   };
+
+  public openMedicinePage({ ID }) {
+    if (!ID) return;
+
+    this.$router.push({
+      name: "medicine-view",
+      params: {
+        id: ID,
+      },
+    });
+  }
 
   public openSearchPage() {
     if (!this.query) return;
