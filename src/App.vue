@@ -74,6 +74,7 @@ export default class App extends Vue {
     setToken("", false);
     this.$store.commit("setUser", {});
     this.$store.commit("setLoggedIn", false);
+    this.$router.push("/");
   }
 
   public toPosts() {
