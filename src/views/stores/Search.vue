@@ -12,8 +12,6 @@
       <v-card-subtitle>{{ store.ADDRESS }}</v-card-subtitle>
       <v-card-text class="d-flex justify-space-between">
         <span>{{ store.PHONES }}</span>
-        <v-chip v-if="store.PRICE" color="secondary">{{ store.PRICE }}</v-chip>
-        <span v-else>Уточните у продавца</span>
       </v-card-text>
     </v-card>
     <v-btn
