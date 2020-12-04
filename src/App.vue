@@ -61,7 +61,6 @@ import { getToken, setToken } from "@/utils";
 export default class App extends Vue {
   public async created() {
     const token = getToken();
-    console.log(token);
 
     if (token) {
       const { data } = await api.get("/users/info");

@@ -101,11 +101,18 @@ export default class MedicinesView extends Vue {
 
 .info-wrapper {
   max-width: 550px;
-  flex: 1;
 }
 .medicines-title {
   font-size: 2.2rem;
   font-weight: 600;
+}
+.illustration-wrapper {
+  position: fixed;
+  right: 0;
+  top: 64px;
+  width: calc(100vw - 550px - 60px);
+  height: calc(100vh - 64px);
+  max-width: 800px;
 }
 </style>
 

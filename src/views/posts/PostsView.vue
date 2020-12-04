@@ -19,7 +19,6 @@
         append-icon="mdi-magnify"
         class="mt-10"
         @keydown.enter="openSearchPage"
-        @input="openMedicinePage"
       >
       </v-combobox>
 
@@ -48,18 +47,14 @@ import { VCombobox } from "@/@types";
     query: "fetchSuggestions",
   },
   methods: {
-    fetchSuggestions: debounce(async function(
-      this: PostsView,
-      val: string
-    ) {
+    fetchSuggestions: debounce(async function(this: PostsView, val: string) {
       if (!val) return;
       if (val.length < 1) return;
       this.loading = true;
-      const { data } = await api.get("/medicines/autocomplete?query=" + val);
+      const { data } = await api.get("/posts/autocomplete?query=" + val);
       this.suggestions = data;
       this.loading = false;
-    },
-    500),
+    }, 500),
   },
 })
 export default class PostsView extends Vue {
@@ -71,22 +66,11 @@ export default class PostsView extends Vue {
     box: VCombobox;
   };
 
-  public openMedicinePage({ ID }) {
-    if (!ID) return;
-
-    this.$router.push({
-      name: "medicine-view",
-      params: {
-        id: ID,
-      },
-    });
-  }
-
   public openSearchPage() {
     if (!this.query) return;
 
     this.$router.push({
-      path: "/medicines/search",
+      path: "/posts/search",
       query: {
         query: this.query,
       },
@@ -101,11 +85,19 @@ export default class PostsView extends Vue {
 
 .info-wrapper {
   max-width: 550px;
-  flex: 1;
 }
 .medicines-title {
   font-size: 2.2rem;
   font-weight: 600;
+}
+
+.illustration-wrapper {
+  position: fixed;
+  right: 0;
+  top: 64px;
+  width: calc(100vw - 550px - 60px);
+  height: calc(100vh - 64px);
+  max-width: 800px;
 }
 </style>
 

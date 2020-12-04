@@ -95,6 +95,14 @@ export default class StoresView extends Vue {
   font-size: 2.2rem;
   font-weight: 600;
 }
+.illustration-wrapper {
+  position: fixed;
+  right: 0;
+  top: 64px;
+  width: calc(100vw - 550px - 60px);
+  height: calc(100vh - 64px);
+  max-width: 800px;
+}
 </style>
 
 <style lang="scss">

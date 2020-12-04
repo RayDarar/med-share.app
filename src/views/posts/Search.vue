@@ -1,26 +1,41 @@
 <template>
   <div class="pb-10">
     <p class="subtitle">Найдено {{ count }} препаратов</p>
+    <p>
+      Забирая препараты, Вы действуете на своё усмотрение и ответственность за
+      ваше здоровье лежит на Вас. Med-share является только площадкой для
+      размещения объявлений.
+    </p>
     <v-card v-for="item in list" :key="item.ID + Math.random()" class="mb-5">
       <v-card-title>{{ item.TITLE }}</v-card-title>
       <v-card-subtitle class="primary--text">{{
         parseStatus(item.STATUS)
       }}</v-card-subtitle>
-      <v-card-text class="d-flex justify-space-between">
-        <template v-if="item.AVAILABLE">
-          <div class="wrapper d-flex align-center">
-            <template v-if="item.PRICE">
-              <span class="mr-2">Цена:</span>
-              <v-chip color="secondary">от {{ item.PRICE }}</v-chip>
-            </template>
-          </div>
-          <v-btn @click="routeTo(item.ID)" color="#171E54" text>
-            Где купить
-          </v-btn>
-        </template>
-        <template v-else>
-          В данный момент нет в наличии
-        </template>
+      <v-card-text>
+        <v-container class="pa-0">
+          <v-row>
+            <v-col cols="6" class="py-0">Срок годности:</v-col>
+            <v-col cols="6" class="py-0 primary--text">{{
+              parseDate(item.EXPIRES)
+            }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" class="py-0">Количество/состояние:</v-col>
+            <v-col cols="6" class="py-0 primary--text">{{ item.AMOUNT }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" class="py-0">Способ хранения:</v-col>
+            <v-col cols="6" class="py-0 primary--text">{{ item.STORAGE }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" class="py-0">Контакты:</v-col>
+            <v-col cols="6" class="py-0 primary--text">{{
+              item.CONTACTS
+            }}</v-col>
+          </v-row>
+        </v-container>
+        <hr class="my-2" />
+        <p class="mb-0">{{ item.FULLNAME }}</p>
       </v-card-text>
     </v-card>
     <v-btn
@@ -36,13 +51,13 @@
 </template>
 
 <script lang="ts">
-import { Medicine } from "@/@types";
+import { Post } from "@/@types";
 import { Component, Vue } from "vue-property-decorator";
 import { api } from "@/api";
 
 @Component
 export default class PostSearchView extends Vue {
-  list: Medicine[] = [];
+  list: Post[] = [];
   count = 0;
   isEnd = false;
 
@@ -50,7 +65,7 @@ export default class PostSearchView extends Vue {
     const { query } = this.$route.query;
     const {
       data: { result, count },
-    } = await api.get(`/medicines?query=${query}&offset=${offset}`);
+    } = await api.get(`/posts?query=${query}&offset=${offset}`);
     if (result.length == 0) {
       this.isEnd = true;
       return;
@@ -66,13 +81,9 @@ export default class PostSearchView extends Vue {
     return "Без рецепта";
   }
 
-  public routeTo(id: number) {
-    this.$router.push({
-      name: "medicine-view",
-      params: {
-        id: id + "",
-      },
-    });
+  public parseDate(date: string) {
+    const temp = new Date(date);
+    return temp.toLocaleDateString().replace(/\//g, ".");
   }
 
   async created() {

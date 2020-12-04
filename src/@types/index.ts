@@ -19,6 +19,16 @@ export interface Pharmacy extends PharmaciesSuggestion {
   LONGITUDE?: number;
 }
 
+export type PostsSuggestion = MedicinesSuggestion;
+
+export interface Post extends PharmaciesSuggestion {
+  STATUS: string;
+  STORAGE: string;
+  EXPIRES: string;
+  CONTACTS: string;
+  POST_STATUS: string;
+}
+
 export interface VCombobox extends Vue {
   blur(): void;
 }
