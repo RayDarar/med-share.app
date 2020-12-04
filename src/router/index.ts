@@ -61,6 +61,10 @@ const routes: Array<RouteConfig> = [
     component: () => import("@/views/posts/MyPosts.vue"),
   },
   {
+    path: "/moderation",
+    component: () => import("@/views/posts/Moderation.vue"),
+  },
+  {
     path: "/login",
     component: () => import("@/views/Login.vue"),
   },

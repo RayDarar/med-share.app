@@ -32,6 +32,9 @@
               </v-btn>
             </template>
             <v-list>
+              <v-list-item v-if="isAdmin" @click="toModeration">
+                <v-list-item-title>Модерация</v-list-item-title>
+              </v-list-item>
               <v-list-item @click="toPosts">
                 <v-list-item-title>Мои объявления</v-list-item-title>
               </v-list-item>
@@ -69,6 +72,10 @@ export default class App extends Vue {
     }
   }
 
+  get isAdmin() {
+    return this.$store.state.user.PHONE == "+7 (708) 614 46 72";
+  }
+
   public logout() {
     setToken("", true);
     setToken("", false);
@@ -79,6 +86,10 @@ export default class App extends Vue {
 
   public toPosts() {
     this.$router.push("/my-posts");
+  }
+
+  public toModeration() {
+    this.$router.push("/moderation");
   }
 }
 </script>
