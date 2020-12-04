@@ -11,9 +11,12 @@
           Войти здесь
         </router-link>
       </p>
-      <v-form ref="form">
+      <p class="my-4 red--text" v-if="error">
+        {{ error }}
+      </p>
+      <v-form ref="form" lazy-validation>
         <v-text-field
-          v-model="phone"
+          v-model="fullname"
           label="Фамилия Имя"
           outlined
           :rules="[rules.required]"
@@ -40,7 +43,9 @@
           label="* Я соглашаюсь с правилами использования сервиса, а также с передачей и обработкой моих данных в Med-share. Я подтверждаю своё совершеннолетие и ответственность за размещение объявления"
           :rules="[rules.required]"
         ></v-checkbox>
-        <v-btn color="primary" large width="300" @click="register">Зарегистрироваться</v-btn>
+        <v-btn color="primary" large width="300" @click="register">
+          Зарегистрироваться
+        </v-btn>
       </v-form>
     </div>
     <div class="illustration-wrapper">
@@ -51,12 +56,27 @@
         transition="scale-transition"
       />
     </div>
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-title>Успешно</v-card-title>
+        <v-card-text>
+          Теперь вы можете войти в ваш аккаунт.
+          <router-link to="/login" class="primary--text">
+            Войти здесь
+          </router-link>
+        </v-card-text>
+        <v-card-actions class="px-4 pb-4">
+          <v-btn text @click="dialog = false">Закрыть</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { VForm } from "@/@types";
 import { Component, Vue } from "vue-property-decorator";
+import { api } from "@/api";
 
 @Component
 export default class RegisterView extends Vue {
@@ -65,6 +85,8 @@ export default class RegisterView extends Vue {
   password = "";
   fullname = "";
   accept = false;
+  error = "";
+  dialog = false;
 
   rules = {
     required: (value) => !!value || "Обязательное поле",
@@ -81,7 +103,19 @@ export default class RegisterView extends Vue {
   public register() {
     if (!this.$refs.form.validate()) return;
 
-    console.log("Wow");
+    api
+      .post("/users/", {
+        phone: this.phone,
+        fullname: this.fullname,
+        password: this.password,
+      })
+      .then(() => {
+        this.dialog = true;
+      })
+      .catch(({ response }) => {
+        if (response.data.message == "Phone exists")
+          this.error = "Номер уже зарегистрирован";
+      });
   }
 }
 </script>
