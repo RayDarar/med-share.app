@@ -34,4 +34,5 @@ export interface VCombobox extends Vue {
 }
 export interface VForm extends Vue {
   validate(): boolean;
+  reset(): void;
 }
