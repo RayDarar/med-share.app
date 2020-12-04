@@ -44,6 +44,22 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/posts",
+    component: () => import("@/views/posts/PostsView.vue"),
+    children: [
+      {
+        path: "search",
+        component: () => import("@/views/posts/Search.vue"),
+      },
+      {
+        path: "/",
+        component: () => import("@/views/posts/Instructions.vue"),
+      },
+    ],
+  },
+  {
+    path: "/posts/:id",
+    component: () => import("@/views/posts/PostView.vue"),
+    name: "post-view",
   },
   {
     path: "/my-posts",
