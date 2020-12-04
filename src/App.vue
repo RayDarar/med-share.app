@@ -20,8 +20,27 @@
       </div>
       <v-spacer></v-spacer>
       <div class="d-flex align-center ml-16">
-        <navigation-link to="/login">Войти</navigation-link>
-        <navigation-link to="/register">Зарегистрироваться</navigation-link>
+        <template v-if="!$store.state.loggedIn">
+          <navigation-link to="/login">Войти</navigation-link>
+          <navigation-link to="/register">Зарегистрироваться</navigation-link>
+        </template>
+        <template v-else>
+          <v-menu offset-y>
+            <template #activator="{ on, attrs }">
+              <v-btn color="white" text v-bind="attrs" v-on="on" height="64px">
+                {{ $store.state.user.FULLNAME }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="toPosts">
+                <v-list-item-title>Мои объявления</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="logout">
+                <v-list-item-title>Выход</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
       </div>
     </v-app-bar>
     <v-main>
@@ -33,11 +52,35 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import NavigationLink from "@/components/app-bar/NavigationLink.vue";
+import { api } from "@/api";
+import { getToken, setToken } from "@/utils";
 
 @Component({
   components: { NavigationLink },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  public async created() {
+    const token = getToken();
+    console.log(token);
+
+    if (token) {
+      const { data } = await api.get("/users/info");
+      this.$store.commit("setUser", data);
+      this.$store.commit("setLoggedIn", true);
+    }
+  }
+
+  public logout() {
+    setToken("", true);
+    setToken("", false);
+    this.$store.commit("setUser", {});
+    this.$store.commit("setLoggedIn", false);
+  }
+
+  public toPosts() {
+    this.$router.push("/my-posts");
+  }
+}
 </script>
 
 <style lang="scss">

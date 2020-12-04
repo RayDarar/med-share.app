@@ -46,6 +46,10 @@ const routes: Array<RouteConfig> = [
     path: "/posts",
   },
   {
+    path: "/my-posts",
+    component: () => import("@/views/MyPosts.vue"),
+  },
+  {
     path: "/login",
     component: () => import("@/views/Login.vue"),
   },

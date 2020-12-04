@@ -12,6 +12,9 @@
           Зарегистрироваться здесь
         </router-link>
       </p>
+      <p class="my-4 red--text" v-if="error">
+        {{ error }}
+      </p>
       <v-form ref="form">
         <v-text-field
           v-model="phone"
@@ -51,6 +54,8 @@
 <script lang="ts">
 import { VForm } from "@/@types";
 import { Component, Vue } from "vue-property-decorator";
+import { api } from "@/api";
+import { setToken } from "@/utils";
 
 @Component
 export default class LoginView extends Vue {
@@ -58,6 +63,7 @@ export default class LoginView extends Vue {
   phone = "";
   password = "";
   stay = false;
+  error = "";
 
   rules = {
     required: (value) => !!value || "Обязательное поле",
@@ -74,7 +80,23 @@ export default class LoginView extends Vue {
   public login() {
     if (!this.$refs.form.validate()) return;
 
-    console.log("Wow");
+    api
+      .post("/users/authenticate", {
+        phone: this.phone,
+        password: this.password,
+      })
+      .then(({ data }) => {
+        setToken(data.token, this.stay);
+        this.$store.commit("setUser", data.user);
+        this.$store.commit("setLoggedIn", true);
+        this.$router.push("/");
+      })
+      .catch(({ response }) => {
+        const { message } = response.data;
+        if (message == "User not found") this.error = "Пользователь не найден";
+        if (message == "Passwords do not match")
+          this.error = "Пароль не верный";
+      });
   }
 }
 </script>
